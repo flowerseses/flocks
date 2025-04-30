@@ -6,14 +6,12 @@ package gay.flowerses.flock.v0
 
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.draw.tint
 import org.openrndr.math.Vector2
-import kotlin.math.cos
-import kotlin.math.sin
+import org.openrndr.extra.videoprofiles.*
+import org.openrndr.ffmpeg.ScreenRecorder
 import kotlin.random.Random
 
 import gay.flowerses.flock.utils.backgroundColors
-import gay.flowerses.flock.v0.SimpleBird
 import org.openrndr.extra.color.presets.DARK_GRAY
 
 fun main() = application {
@@ -23,7 +21,13 @@ fun main() = application {
     }
 
     program {
-        var birb = SimpleBird(Vector2(width/2.0, height/2.0), Vector2(Random.nextDouble(), Random.nextDouble()))
+        var birb = SimpleBird(Vector2(width/2.0, height/2.0), Vector2(Random.nextDouble(-3.0, 3.0), Random.nextDouble(-3.0, 3.0)))
+        //extend(ScreenRecorder()) {
+        //    h265 { constantRateFactor = 23 }
+        //}
+        extend(ScreenRecorder()) {
+            gif()
+        }
         extend {
             val col = backgroundColors["paper1"]
             drawer.clear(col as ColorRGBa)
