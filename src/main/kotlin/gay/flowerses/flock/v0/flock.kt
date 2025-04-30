@@ -7,21 +7,30 @@ package gay.flowerses.flock.v0
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.tint
+import org.openrndr.math.Vector2
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlin.random.Random
+
+import gay.flowerses.flock.utils.backgroundColors
+import gay.flowerses.flock.v0.SimpleBird
+import org.openrndr.extra.color.presets.DARK_GRAY
 
 fun main() = application {
     configure {
-        width = 768
-        height = 576
+        width = 800
+        height = 800
     }
 
     program {
+        var birb = SimpleBird(Vector2(width/2.0, height/2.0), Vector2(Random.nextDouble(), Random.nextDouble()))
         extend {
-            drawer.drawStyle.colorMatrix = tint(ColorRGBa.WHITE.shade(0.2))
+            val col = backgroundColors["paper1"]
+            drawer.clear(col as ColorRGBa)
 
-            drawer.fill = ColorRGBa.PINK
-            drawer.circle(cos(seconds) * width / 2.0 + width / 2.0, sin(0.5 * seconds) * height / 2.0 + height / 2.0, 140.0)
+            drawer.fill = ColorRGBa.DARK_GRAY
+            birb.update(width, height)
+            drawer.circle(birb.position.x, birb.position.y, 4.0)
         }
     }
 }
